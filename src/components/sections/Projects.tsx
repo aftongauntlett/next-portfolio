@@ -1,6 +1,13 @@
+import type { JSX } from "react";
 import Section from "@components/common/Section";
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  link: string;
+}
+
+const projects: Project[] = [
   {
     title: "Dataset Sharing Platform",
     description:
@@ -15,36 +22,44 @@ const projects = [
   },
 ];
 
-export default function Projects() {
+export default function Projects(): JSX.Element {
   return (
-    <Section>
-      <div className="space-y-10">
-        <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-heading font-bold text-primary dark:text-primary-light transition-all duration-300">
-          Projects
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((proj) => (
-            <div
-              key={proj.title}
-              className="rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 hover:shadow-md transition"
+    <Section
+      id="projects"
+      aria-labelledby="projects-heading"
+      className="space-y-10"
+    >
+      <h2
+        id="projects-heading"
+        className="text-[clamp(2rem,5vw,3.5rem)] font-heading font-bold text-primary dark:text-primary-light transition-all duration-300"
+      >
+        Projects
+      </h2>
+
+      <div role="list" className="grid md:grid-cols-2 gap-6">
+        {projects.map((proj) => (
+          <article
+            key={proj.title}
+            role="listitem"
+            className="card hover-shadow"
+          >
+            <h3 className="text-xl font-semibold text-text-dark dark:text-text-light">
+              {proj.title}
+            </h3>
+            <p className="leading-relaxed text-text-dark dark:text-text-light my-3">
+              {proj.description}
+            </p>
+            <a
+              href={proj.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-link"
+              aria-label={`View project ${proj.title}`}
             >
-              <h3 className="text-xl font-semibold text-text-dark dark:text-text-light">
-                {proj.title}
-              </h3>
-              <p className="text-neutral-700 dark:text-neutral-300 my-3">
-                {proj.description}
-              </p>
-              <a
-                href={proj.link}
-                className="text-primary hover:underline text-sm font-medium dark:text-primary-light"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View project →
-              </a>
-            </div>
-          ))}
-        </div>
+              View project →
+            </a>
+          </article>
+        ))}
       </div>
     </Section>
   );

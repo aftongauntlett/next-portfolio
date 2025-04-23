@@ -1,15 +1,17 @@
-import { ReactNode, HTMLAttributes } from "react";
+import type { ReactNode, HTMLAttributes, JSX } from "react";
 import clsx from "clsx";
 
 export interface SectionProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
+  /** Accessible label for the section landmark, if needed */
+  "aria-label"?: string;
 }
 
 export default function Section({
   children,
   className,
   ...props
-}: SectionProps) {
+}: SectionProps): JSX.Element {
   return (
     <section
       {...props}
