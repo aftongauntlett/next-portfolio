@@ -1,11 +1,12 @@
-import ScrollSections from "../components/layout/ScrollSections";
+"use client";
 
-export default function Home() {
+import ScrollSections from "@components/layout/ScrollSections";
+import { JSX } from "react";
+
+export default function Home(): JSX.Element {
   return (
-    <div className="container mx-auto">
-      <div>
-        <ScrollSections />
-      </div>
+    <div className="container">
+      <ScrollSections />
     </div>
   );
 }

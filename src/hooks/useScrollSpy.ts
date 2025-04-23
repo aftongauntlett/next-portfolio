@@ -1,22 +1,44 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
+/**
+ * Tracks which section ID is currently in view.
+ * @param ids Array of section element IDs to observe
+ * @param options Optional IntersectionObserverInit overrides
+ * @returns The ID of the currently intersecting section
+ */
 export function useScrollSpy(
   ids: string[],
-  options?: IntersectionObserverInit
-) {
-  const [activeId, setActiveId] = useState<string>("");
-  const observer = useRef<IntersectionObserver | null>(null);
+  options: IntersectionObserverInit = {}
+): string {
+  const [activeId, setActiveId] = useState<string>(ids[0] ?? "");
 
   useEffect(() => {
-    observer.current = new IntersectionObserver((entries) => {
-      entries.forEach((e) => e.isIntersecting && setActiveId(e.target.id));
-    }, options);
+    if (ids.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "0px 0px -50% 0px",
+        threshold: 0,
+        ...options,
+      }
+    );
+
     ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.current?.observe(el);
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
     });
-    return () => observer.current?.disconnect();
-  }, [ids.join(), JSON.stringify(options)]);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [ids.join(","), JSON.stringify(options)]);
 
   return activeId;
 }
