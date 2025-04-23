@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+h1,
+.heading {
+  font-family: var(--font-montserrat), sans-serif;
+  letter-spacing: 0.05em;
+}
