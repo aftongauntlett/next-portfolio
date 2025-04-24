@@ -43,10 +43,10 @@ export default function Projects(): JSX.Element {
             role="listitem"
             className="card hover-shadow"
           >
-            <h3 className="text-xl font-semibold text-text-dark dark:text-text-light">
+            <h3 className="text-xl font-semibold text-dark dark:text-light">
               {proj.title}
             </h3>
-            <p className="leading-relaxed text-text-dark dark:text-text-light my-3">
+            <p className="leading-relaxed text-dark dark:text-light my-3">
               {proj.description}
             </p>
             <a

@@ -41,7 +41,7 @@ export default function Experience(): JSX.Element {
       <ul aria-label="Work experience" className="space-y-8">
         {jobs.map((job) => (
           <li key={job.company} className="space-y-2">
-            <h3 className="text-xl font-semibold text-text-dark dark:text-text-light">
+            <h3 className="text-xl font-semibold text-dark dark:text-light">
               {job.title}{" "}
               <span className="text-neutral-500 dark:text-neutral-400">
                 @ {job.company}
@@ -50,7 +50,7 @@ export default function Experience(): JSX.Element {
             <p className="text-sm text-neutral-500 dark:text-neutral-400">
               {job.time}
             </p>
-            <p className="leading-relaxed text-text-dark dark:text-text-light">
+            <p className="leading-relaxed text-dark dark:text-light">
               {job.description}
             </p>
           </li>

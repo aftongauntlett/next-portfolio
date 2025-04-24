@@ -63,13 +63,13 @@ export default function Skills(): JSX.Element {
       <div className="grid md:grid-cols-3 gap-8 text-[clamp(1rem,2vw,1.125rem)]">
         {Object.entries(skills).map(([category, items]) => (
           <div key={category}>
-            <h3 className="text-xl font-semibold mb-4 text-text-dark dark:text-text-light">
+            <h3 className="text-xl font-semibold mb-4 text-dark dark:text-light">
               {category}
             </h3>
             <ul
               role="list"
               aria-label={category}
-              className="space-y-2 text-text-dark dark:text-text-light"
+              className="space-y-2 text-dark dark:text-light"
             >
               {items.map((skill) => (
                 <li key={skill} className="leading-relaxed">
