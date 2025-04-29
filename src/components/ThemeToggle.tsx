@@ -40,7 +40,7 @@ export default function ThemeToggle(): JSX.Element | null {
             transition={{ duration: 0.5 }}
           >
             <div className="relative w-6 h-6">
-              <div className="absolute inset-0 blur-md rounded-full opacity-40 bg-primary-light" />
+              <div className="absolute inset-0 blur-md rounded-full opacity-40 bg-primaryLight" />
               <Sun className="w-6 h-6 stroke-primary transition-colors" />
               <motion.div
                 className="absolute inset-0"
