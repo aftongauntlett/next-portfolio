@@ -6,12 +6,9 @@ export default function Contact(): JSX.Element {
     <Section
       id="contact"
       aria-labelledby="contact-heading"
-      className="space-y-10 max-w-xl"
+      className="space-y-10"
     >
-      <h2
-        id="contact-heading"
-        className="text-[clamp(2rem,5vw,3.5rem)] font-heading font-bold text-primary dark:text-primary-light transition-all duration-300"
-      >
+      <h2 id="contact-heading" className="transition-all duration-300">
         Contact Me
       </h2>
 

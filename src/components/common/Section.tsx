@@ -14,12 +14,9 @@ export default function Section({
   return (
     <section
       {...props}
-      className={clsx(
-        "bg-body-light dark:bg-body-dark text-dark dark:text-light transition-colors duration-300 px-fluid-x py-fluid-y",
-        className
-      )}
+      className={clsx("transition-colors duration-300", className)}
     >
-      <div className="max-w-screen-xl mx-auto">{children}</div>
+      <div className="">{children}</div>
     </section>
   );
 }

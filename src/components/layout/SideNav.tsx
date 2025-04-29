@@ -29,8 +29,8 @@ export default function SideNav({
             className={clsx(
               "block px-2 py-1 rounded-md text-sm tracking-wide transition-colors duration-200 focus-ring",
               activeId === id
-                ? "text-primary dark:text-primary-light font-semibold bg-neutral-800 dark:bg-neutral-200"
-                : "hover:text-primary dark:hover:text-primary-light"
+                ? "text-primary dark:text-primaryLight font-semibold bg-neutral-800 dark:bg-neutral-200"
+                : "hover:text-primary dark:hover:text-primaryLight"
             )}
           >
             {label}

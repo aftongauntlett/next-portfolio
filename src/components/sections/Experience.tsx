@@ -34,25 +34,18 @@ export default function Experience(): JSX.Element {
     >
       <h2
         id="experience-heading"
-        className="text-[clamp(2rem,5vw,3.5rem)] font-heading font-bold text-primary dark:text-primary-light transition-all duration-300"
+        className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-primary dark:text-primaryLight transition-all duration-300"
       >
         Experience
       </h2>
       <ul aria-label="Work experience" className="space-y-8">
         {jobs.map((job) => (
           <li key={job.company} className="space-y-2">
-            <h3 className="text-xl font-semibold text-dark dark:text-light">
-              {job.title}{" "}
-              <span className="text-neutral-500 dark:text-neutral-400">
-                @ {job.company}
-              </span>
+            <h3 className="">
+              {job.title} <span className="">@ {job.company}</span>
             </h3>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
-              {job.time}
-            </p>
-            <p className="leading-relaxed text-dark dark:text-light">
-              {job.description}
-            </p>
+            <p className="">{job.time}</p>
+            <p className="">{job.description}</p>
           </li>
         ))}
       </ul>

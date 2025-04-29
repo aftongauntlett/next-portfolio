@@ -49,28 +49,15 @@ const skills: Record<string, string[]> = {
 
 export default function Skills(): JSX.Element {
   return (
-    <Section
-      id="skills"
-      aria-labelledby="skills-heading"
-      className="space-y-12"
-    >
-      <h2
-        id="skills-heading"
-        className="text-[clamp(2rem,5vw,3.5rem)] font-heading font-bold text-primary dark:text-primary-light transition-all duration-300"
-      >
+    <Section id="skills" aria-labelledby="skills-heading" className="">
+      <h2 id="skills-heading" className="transition-all duration-300">
         Skills
       </h2>
-      <div className="grid md:grid-cols-3 gap-8 text-[clamp(1rem,2vw,1.125rem)]">
+      <div className="grid md:grid-cols-3 gap-8">
         {Object.entries(skills).map(([category, items]) => (
           <div key={category}>
-            <h3 className="text-xl font-semibold mb-4 text-dark dark:text-light">
-              {category}
-            </h3>
-            <ul
-              role="list"
-              aria-label={category}
-              className="space-y-2 text-dark dark:text-light"
-            >
+            <h3 className="">{category}</h3>
+            <ul role="list" aria-label={category} className="space-y-2">
               {items.map((skill) => (
                 <li key={skill} className="leading-relaxed">
                   {skill}

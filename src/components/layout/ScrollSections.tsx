@@ -10,11 +10,11 @@ export default function ScrollSections(): JSX.Element {
   const activeId = useScrollSpy(ids);
 
   return (
-    <div className="flex h-screen lg:overflow-hidden">
+    <div className="flex h-screen w-full">
       <aside
         role="complementary"
         aria-label="Section navigation"
-        className="w-full lg:w-56 shrink-0"
+        className="w-full lg:w-auto shrink-0"
       >
         <SideNav sections={SECTIONS} activeId={activeId} />
       </aside>
@@ -28,7 +28,7 @@ export default function ScrollSections(): JSX.Element {
             key={id}
             id={id}
             aria-labelledby={`${id}-heading`}
-            className="px-6 md:px-8 py-24 border-b border-neutral-200 dark:border-neutral-700"
+            className="border-b border-neutral-200 dark:border-neutral-700"
           >
             <Component />
           </section>

@@ -5,7 +5,7 @@ import { JSX } from "react";
 
 export default function Home(): JSX.Element {
   return (
-    <div className="container">
+    <div className="w-full">
       <ScrollSections />
     </div>
   );

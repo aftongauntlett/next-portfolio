@@ -29,10 +29,7 @@ export default function Projects(): JSX.Element {
       aria-labelledby="projects-heading"
       className="space-y-10"
     >
-      <h2
-        id="projects-heading"
-        className="text-[clamp(2rem,5vw,3.5rem)] font-heading font-bold text-primary dark:text-primary-light transition-all duration-300"
-      >
+      <h2 id="projects-heading" className="transition-all duration-300">
         Projects
       </h2>
 
@@ -43,12 +40,8 @@ export default function Projects(): JSX.Element {
             role="listitem"
             className="card hover-shadow"
           >
-            <h3 className="text-xl font-semibold text-dark dark:text-light">
-              {proj.title}
-            </h3>
-            <p className="leading-relaxed text-dark dark:text-light my-3">
-              {proj.description}
-            </p>
+            <h3 className="text-xl font-semibold">{proj.title}</h3>
+            <p className="leading-relaxed my-3">{proj.description}</p>
             <a
               href={proj.link}
               target="_blank"
