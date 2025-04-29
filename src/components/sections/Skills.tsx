@@ -1,5 +1,4 @@
 import type { JSX } from "react";
-import Section from "@components/common/Section";
 
 const skills: Record<string, string[]> = {
   "Languages & Frameworks": [
@@ -49,24 +48,19 @@ const skills: Record<string, string[]> = {
 
 export default function Skills(): JSX.Element {
   return (
-    <Section id="skills" aria-labelledby="skills-heading" className="">
-      <h2 id="skills-heading" className="transition-all duration-300">
-        Skills
-      </h2>
-      <div className="grid md:grid-cols-3 gap-8">
-        {Object.entries(skills).map(([category, items]) => (
-          <div key={category}>
-            <h3 className="">{category}</h3>
-            <ul role="list" aria-label={category} className="space-y-2">
-              {items.map((skill) => (
-                <li key={skill} className="leading-relaxed">
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </Section>
+    <div className="grid md:grid-cols-3 gap-8">
+      {Object.entries(skills).map(([category, items]) => (
+        <div key={category}>
+          <h3 className="">{category}</h3>
+          <ul role="list" aria-label={category} className="space-y-2">
+            {items.map((skill) => (
+              <li key={skill} className="leading-relaxed">
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   );
 }

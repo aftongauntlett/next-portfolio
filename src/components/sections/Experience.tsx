@@ -1,5 +1,4 @@
 import type { JSX } from "react";
-import Section from "@components/common/Section";
 
 interface Job {
   company: string;
@@ -27,28 +26,16 @@ const jobs: Job[] = [
 
 export default function Experience(): JSX.Element {
   return (
-    <Section
-      id="experience"
-      aria-labelledby="experience-heading"
-      className="space-y-10"
-    >
-      <h2
-        id="experience-heading"
-        className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-primary dark:text-primaryLight transition-all duration-300"
-      >
-        Experience
-      </h2>
-      <ul aria-label="Work experience" className="space-y-8">
-        {jobs.map((job) => (
-          <li key={job.company} className="space-y-2">
-            <h3 className="">
-              {job.title} <span className="">@ {job.company}</span>
-            </h3>
-            <p className="">{job.time}</p>
-            <p className="">{job.description}</p>
-          </li>
-        ))}
-      </ul>
-    </Section>
+    <ul aria-label="Work experience" className="space-y-8">
+      {jobs.map((job) => (
+        <li key={job.company} className="space-y-2">
+          <h3 className="">
+            {job.title} <span className="">@ {job.company}</span>
+          </h3>
+          <p className="">{job.time}</p>
+          <p className="">{job.description}</p>
+        </li>
+      ))}
+    </ul>
   );
 }

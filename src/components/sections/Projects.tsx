@@ -1,5 +1,4 @@
 import type { JSX } from "react";
-import Section from "@components/common/Section";
 
 interface Project {
   title: string;
@@ -24,36 +23,22 @@ const projects: Project[] = [
 
 export default function Projects(): JSX.Element {
   return (
-    <Section
-      id="projects"
-      aria-labelledby="projects-heading"
-      className="space-y-10"
-    >
-      <h2 id="projects-heading" className="transition-all duration-300">
-        Projects
-      </h2>
-
-      <div role="list" className="grid md:grid-cols-2 gap-6">
-        {projects.map((proj) => (
-          <article
-            key={proj.title}
-            role="listitem"
-            className="card hover-shadow"
+    <div role="list" className="grid md:grid-cols-2 gap-6">
+      {projects.map((proj) => (
+        <article key={proj.title} role="listitem" className="card hover-shadow">
+          <h3 className="text-xl font-semibold">{proj.title}</h3>
+          <p className="leading-relaxed my-3">{proj.description}</p>
+          <a
+            href={proj.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-link"
+            aria-label={`View project ${proj.title}`}
           >
-            <h3 className="text-xl font-semibold">{proj.title}</h3>
-            <p className="leading-relaxed my-3">{proj.description}</p>
-            <a
-              href={proj.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-link"
-              aria-label={`View project ${proj.title}`}
-            >
-              View project →
-            </a>
-          </article>
-        ))}
-      </div>
-    </Section>
+            View project →
+          </a>
+        </article>
+      ))}
+    </div>
   );
 }

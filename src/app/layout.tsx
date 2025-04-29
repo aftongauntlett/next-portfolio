@@ -1,13 +1,16 @@
 import "./globals.css";
-import type { ReactNode } from "react";
+import SideNav from "@components/Sidebar";
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className="dark">
-      <body>
-        <main id="main-content" role="main">
-          {children}
-        </main>
+    <html lang="en">
+      <body className="flex h-screen overflow-hidden">
+        <SideNav />
+        <main className="flex-1 overflow-auto p-8">{children}</main>
       </body>
     </html>
   );
