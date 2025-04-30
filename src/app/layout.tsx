@@ -1,5 +1,5 @@
 import "./globals.css";
-import SideNav from "@components/Sidebar";
+import Sidebar from "@components/Sidebar";
 
 export default function RootLayout({
   children,
@@ -8,9 +8,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex h-screen overflow-hidden">
-        <SideNav />
-        <main className="flex-1 overflow-auto p-8">{children}</main>
+      <body className="bg-body-light dark:bg-body-dark text-dark dark:text-light">
+        <div className="mx-auto max-w-screen-xl px-6">
+          <div className="lg:grid lg:grid-cols-[20rem_1fr] min-h-screen">
+            <Sidebar />
+            <main>{children}</main>
+          </div>
+        </div>
       </body>
     </html>
   );

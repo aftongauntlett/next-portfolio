@@ -1,4 +1,6 @@
+import Button from "@components/Button";
 import type { JSX } from "react";
+import { HiOutlineArrowTopRightOnSquare } from "react-icons/hi2";
 
 interface Project {
   title: string;
@@ -28,15 +30,11 @@ export default function Projects(): JSX.Element {
         <article key={proj.title} role="listitem" className="card hover-shadow">
           <h3 className="text-xl font-semibold">{proj.title}</h3>
           <p className="leading-relaxed my-3">{proj.description}</p>
-          <a
-            href={proj.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-link"
-            aria-label={`View project ${proj.title}`}
-          >
-            View project →
-          </a>
+          <Button
+            href="#project"
+            text=" View project"
+            icon={<HiOutlineArrowTopRightOnSquare className="w-4 h-4" />}
+          />
         </article>
       ))}
     </div>
