@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useActiveSection } from "@hooks/useActiveSection";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import SidebarLink from "./SidebarLink";
+import TextHoverDrip from "@components/reusable/TextHoverDrip";
 
 const NAV = [
   { id: "about", label: "About" },
@@ -18,13 +19,15 @@ export default function Sidebar() {
 
   return (
     <motion.aside
-      className="hidden lg:flex flex-col justify-between w-80 h-screen px-8 py-12 sticky top-0 text-gray-200 "
+      className="hidden lg:flex flex-col justify-between w-80 h-screen px-8 py-15 sticky top-0 text-gray-200 "
       initial={{ opacity: 0, x: -30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div>
-        <h1 className="text-3xl font-bold text-white mb-1">Afton Gauntlett</h1>
+        <TextHoverDrip>
+          <h2 className="text-3xl mb-1">Afton Gauntlett</h2>
+        </TextHoverDrip>
         <h2 className="text-lg text-gray-400 mb-8">Web Developer</h2>
 
         <nav>

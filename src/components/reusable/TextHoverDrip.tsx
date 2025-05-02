@@ -1,27 +1,27 @@
+// TextHoverDrip.tsx
 "use client";
-
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-export default function TextHoverDrip() {
-  const headingRef = useRef<HTMLHeadingElement>(null);
+interface TextHoverDripProps {
+  children: React.ReactNode;
+}
+
+export default function TextHoverDrip({ children }: TextHoverDripProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hover, setHover] = useState(false);
 
   function handleMouseMove(e: React.MouseEvent) {
-    if (!headingRef.current) return;
-    const rect = headingRef.current.getBoundingClientRect();
-    setPos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    if (!wrapperRef.current) return;
+    const { left, top } = wrapperRef.current.getBoundingClientRect();
+    setPos({ x: e.clientX - left, y: e.clientY - top });
   }
 
   return (
-    <motion.h2
-      ref={headingRef}
-      className="paint-splash text-3xl font-bold text-gray-100 mb-8 text-center relative inline-block"
-      initial={{ opacity: 0, y: 20 }}
+    <motion.div
+      ref={wrapperRef}
+      className="paint-splash relative inline-block font-bold cursor-default"
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
@@ -37,8 +37,7 @@ export default function TextHoverDrip() {
           : {}
       }
     >
-      Let&apos;s make something weirdly beautiful
-      <span className="text-teal-300 ms-1">.</span>
-    </motion.h2>
+      {children}
+    </motion.div>
   );
 }

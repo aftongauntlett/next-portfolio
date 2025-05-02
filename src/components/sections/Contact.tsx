@@ -1,16 +1,20 @@
 "use client";
 
 import Button from "@components/reusable/Button";
-import TextHoverDrip from "@components/TextHoverDrip";
-import { motion } from "framer-motion";
+import TextHoverDrip from "@components/reusable/TextHoverDrip";
 import { HiOutlineArrowRight } from "react-icons/hi2";
 
 export default function Contact() {
   // TODO: Send Email Logic
 
   return (
-    <section id="contact" className="scroll-mt-28 text-gray-100">
-      <TextHoverDrip />
+    <section id="contact" className="scroll-mt-28 text-center">
+      <TextHoverDrip>
+        <h2 className="text-4xl mb-8">
+          Let's make something beautiful
+          <span className="inline-block text-teal-300">.</span>
+        </h2>
+      </TextHoverDrip>
       <form
         className="space-y-6"
         onSubmit={(e) => {

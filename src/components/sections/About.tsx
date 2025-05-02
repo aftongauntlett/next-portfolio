@@ -1,26 +1,33 @@
 import Button from "@components/reusable/Button";
+import TextHoverDrip from "@components/reusable/TextHoverDrip";
 import { type JSX } from "react";
 import { HiOutlineArrowRight } from "react-icons/hi2";
 
 export default function About(): JSX.Element {
   return (
     <div>
-      <h1 className="title text-white">
-        Hello
-        <span className="inline-block text-teal-300 animate-[once-bounce_2s_ease-out_1]">
-          .
-        </span>
-      </h1>
+      <TextHoverDrip>
+        <h1 className="title">
+          Hello
+          <span className="inline-block text-teal-300">.</span>
+        </h1>
+      </TextHoverDrip>
 
       <div className="space-y-4">
         <p>
-          I'm a front-end developer with 5+ years of experience building
-          thoughtful, accessible, and performant web applications. I specialize
-          in React, TypeScript, and UI architecture, with a strong focus on
-          clean design systems, smooth user experiences, and scalable component
-          patterns. I've led frontend redesigns, debugged gnarly bugs, and
-          helped teams adopt tools like TanStack Query and Storybook to improve
-          workflows.
+          I'm a front-end engineer with a strong focus on building accessible,
+          scalable, and user-centered web applications. With over five years of
+          experience, I’ve contributed to large-scale redesigns, led the
+          adoption of modern frameworks like React and Vue, and championed
+          clean, maintainable code through component architecture, design
+          systems, and collaboration across disciplines.
+        </p>
+        <p>
+          My background in both development and design allows me to bridge the
+          gap between usability and implementation. I’m driven by thoughtful
+          problem-solving, mentorship, and a deep respect for clean UI and
+          inclusive experiences. I thrive in team environments where curiosity,
+          empathy, and technical excellence are equally valued.
         </p>
         <p>
           My path into tech wasn't traditional, but it taught me how to lead

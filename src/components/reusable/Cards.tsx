@@ -35,52 +35,7 @@ const projects: Project[] = [
 export default function Cards(): JSX.Element {
   return (
     <section id="projects" className=" scroll-mt-28">
-      <div className="grid grid-cols-2 gap-8">
-        {projects.map((proj, i) => (
-          <div
-            key={i}
-            className="
-              bg-black/60
-              border border-slate-700
-              rounded-md overflow-hidden
-              shadow-sm hover:shadow-lg transition-shadow duration-200
-              flex flex-col
-            "
-          >
-            <div className="h-1 bg-teal-300/50" />
-
-            <div className="p-6 flex flex-col flex-grow">
-              <div className="relative w-full mb-4 overflow-hidden rounded-md aspect-video">
-                <Image
-                  src={proj.imgSrc}
-                  alt={`Screenshot of ${proj.title}`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              <h3 className="text-lg font-medium text-white mb-2">
-                {proj.title}
-              </h3>
-              <p className="text-sm text-teal-300 mb-4">{proj.tech}</p>
-              <p className="text-gray-300 flex-grow leading-relaxed">
-                {proj.description}
-              </p>
-
-              <div className="mt-6 flex justify-end">
-                <Button
-                  href={proj.url}
-                  text="View project"
-                  icon={
-                    <HiOutlineArrowRight className="w-4 h-4 text-teal-300" />
-                  }
-                  external
-                />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      Coming Soon
     </section>
   );
 }

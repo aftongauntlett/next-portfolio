@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import TextHoverDrip from "./reusable/TextHoverDrip";
 
 interface SectionProps {
   id: string;
@@ -18,7 +19,11 @@ export default function Section({ id, title, children }: SectionProps) {
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
     >
-      <h2 className="text-3xl text-teal-300 0 font-semibold my-4">{title}</h2>
+      {title && (
+        <TextHoverDrip>
+          <h2 className="text-4xl mb-8">{title}</h2>
+        </TextHoverDrip>
+      )}
       <div>{children}</div>
     </motion.section>
   );
