@@ -1,3 +1,6 @@
+"use client";
+
+import Footer from "@components/reusable/Footer";
 import Section from "@components/Section";
 import About from "@components/sections/About";
 import Contact from "@components/sections/Contact";
@@ -8,25 +11,26 @@ import Skills from "@components/sections/Skills";
 export default function HomePage() {
   return (
     <>
-      <Section id="intro" title="Intro">
+      <Section id="about">
         <About />
       </Section>
 
-      <Section id="about" title="Experience">
+      <Section id="experience" title="Experience">
         <Experience />
       </Section>
 
-      <Section id="experience" title="Projects">
-        <Projects />
-      </Section>
-
-      <Section id="projects" title="Skills">
+      <Section id="skills" title="Skills">
         <Skills />
       </Section>
 
-      <Section id="contact" title="Contact">
+      <Section id="projects" title="Projects">
+        <Projects />
+      </Section>
+
+      <Section id="contact">
         <Contact />
       </Section>
+      <Footer />
     </>
   );
 }

@@ -2,16 +2,23 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #ada1e3;
-  --color-secondary: #3b3c51;
+  --color-primary: #56fbda;
+  --color-secondary: #75a6f9;
+  --color-light: #f2f2f2;
+  --color-dark: #0c0c0c;
   --font-sans: "Inter", sans-serif;
   --font-heading: "Montserrat", sans-serif;
+  --stripe-color: #0f172a;
+  --blur: 1rem;
+  --fs: clamp(2rem, 7vw, 6rem);
+  --ls: clamp(-1.75px, -0.25vw, -3.5px);
 }
 
 body {
-  @apply bg-slate-900 text-gray-200;
-  font-family: var(--font-sans);
+  color: var(--color-light);
+  background-color: var(--color-dark);
 }
+
 h1,
 h2,
 h3,
@@ -19,4 +26,98 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--fs);
+  font-weight: 800;
+  letter-spacing: var(--ls);
+}
+
+.once-bounce {
+  animation: bounce 1s ease-out 1 forwards;
+}
+
+@keyframes once-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-0.75rem);
+  } /* tweak height */
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Northern Lights Animation */
+@keyframes smoothBg {
+  0% {
+    background-position: 0% 50%, 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%, 100% 50%;
+  }
+}
+
+.hero {
+  --stripes: repeating-linear-gradient(
+    100deg,
+    var(--stripe-color) 0%,
+    var(--stripe-color) 7%,
+    transparent 10%,
+    transparent 12%,
+    var(--stripe-color) 16%
+  );
+
+  --rainbow: repeating-linear-gradient(
+    100deg,
+    #4787ed 10%,
+    #4ab3b3 15%,
+    #5495e5 20%,
+    #7798c4 25%,
+    #55877f 30%
+  );
+
+  filter: blur(10px);
+
+  mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 750%, 500%;
+    animation: smoothBg 150s linear infinite;
+  }
+}
+
+.hero::after {
+  filter: blur(10px) opacity(30%);
+}
+
+.paint-splash {
+  background: white;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  position: relative;
+  transition: ease-in-out 0.2s;
+}
+
+.paint-splash:hover {
+  background-image: radial-gradient(
+    circle at var(--mx) var(--my),
+    var(--color-primary) 0%,
+    var(--color-primary) 15%,
+    white 40%
+  );
 }

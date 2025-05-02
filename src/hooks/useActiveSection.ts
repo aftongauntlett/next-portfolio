@@ -13,18 +13,24 @@ export function useActiveSection(ids: string[]): string {
         });
       },
       {
-        // fire when section crosses middle of viewport
         rootMargin: "-50% 0px -50% 0px",
         threshold: 0,
       }
     );
 
+    const elements: HTMLElement[] = [];
     ids.forEach((id) => {
       const el = document.getElementById(id);
-      if (el) obs.observe(el);
+      if (el) {
+        obs.observe(el);
+        elements.push(el);
+      }
     });
 
-    return () => obs.disconnect();
+    return () => {
+      elements.forEach((el) => obs.unobserve(el));
+      obs.disconnect();
+    };
   }, [ids]);
 
   return active;
