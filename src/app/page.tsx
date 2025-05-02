@@ -1,18 +1,17 @@
 "use client";
 
-import Footer from "@components/Footer";
+import Footer from "@components/reusable/Footer";
 import Section from "@components/Section";
 import About from "@components/sections/About";
 import Contact from "@components/sections/Contact";
 import Experience from "@components/sections/Experience";
 import Projects from "@components/sections/Projects";
 import Skills from "@components/sections/Skills";
-import ScrollToTopCat from "@components/ScrollToTopCat";
 
 export default function HomePage() {
   return (
     <>
-      <Section id="about" title="About">
+      <Section id="about">
         <About />
       </Section>
 
@@ -28,13 +27,10 @@ export default function HomePage() {
         <Projects />
       </Section>
 
-      <Section id="contact" title="Contact">
+      <Section id="contact">
         <Contact />
       </Section>
-      <div>
-        <Footer />
-        <ScrollToTopCat />
-      </div>
+      <Footer />
     </>
   );
 }

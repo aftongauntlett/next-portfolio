@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useActiveSection } from "@hooks/useActiveSection";
-import SidebarLink from "./SidebarLink";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import SidebarLink from "./SidebarLink";
 
 const NAV = [
   { id: "about", label: "About" },
@@ -18,19 +18,14 @@ export default function Sidebar() {
 
   return (
     <motion.aside
-      className="hidden lg:flex flex-col justify-between w-80 h-screen px-8 py-12 sticky top-0 bg-slate-900 border-r border-gray-800 text-gray-400"
+      className="hidden lg:flex flex-col justify-between w-80 h-screen px-8 py-12 sticky top-0 text-gray-200 "
       initial={{ opacity: 0, x: -30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Afton Gauntlett</h1>
-        <h2 className="text-xl text-blue-200 font-semibold mb-2">
-          Front-End Developer
-        </h2>
-        <p className="text-base mb-8 leading-relaxed text-indigo-200">
-          I build awesome stuff.
-        </p>
+        <h1 className="text-3xl font-bold text-white mb-1">Afton Gauntlett</h1>
+        <h2 className="text-lg text-teal-300 mb-8">Web Developer</h2>
 
         <nav>
           <ul className="space-y-3">
@@ -51,7 +46,7 @@ export default function Sidebar() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          className="hover:text-blue-200 transition-colors"
+          className="hover:text-teal-300 transition-colors"
         >
           <FaGithub className="w-6 h-6" />
         </a>
@@ -60,7 +55,7 @@ export default function Sidebar() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
-          className="hover:text-blue-200 transition-colors"
+          className="hover:text-teal-300 transition-colors"
         >
           <FaLinkedin className="w-6 h-6" />
         </a>

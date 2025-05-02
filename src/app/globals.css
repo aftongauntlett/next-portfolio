@@ -2,16 +2,23 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #ada1e3;
-  --color-secondary: #3b3c51;
+  --color-primary: #56fbda;
+  --color-secondary: #75a6f9;
+  --color-light: #f2f2f2;
+  --color-dark: #0c0c0c;
   --font-sans: "Inter", sans-serif;
   --font-heading: "Montserrat", sans-serif;
+  --stripe-color: #0f172a;
+  --blur: 1rem;
+  --fs: clamp(2rem, 7vw, 6rem);
+  --ls: clamp(-1.75px, -0.25vw, -3.5px);
 }
 
 body {
-  @apply bg-slate-900 text-gray-200;
-  font-family: var(--font-sans);
+  color: var(--color-light);
+  background-color: var(--color-dark);
 }
+
 h1,
 h2,
 h3,
@@ -25,44 +32,92 @@ html {
   scroll-behavior: smooth;
 }
 
-@keyframes pulse-glow {
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--fs);
+  font-weight: 800;
+  letter-spacing: var(--ls);
+}
+
+.once-bounce {
+  animation: bounce 1s ease-out 1 forwards;
+}
+
+@keyframes once-bounce {
   0% {
-    box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.4);
+    transform: translateY(0);
   }
+  30% {
+    transform: translateY(-0.75rem);
+  } /* tweak height */
   50% {
-    box-shadow: 0 0 8px 3px rgba(147, 197, 253, 0.3);
+    transform: translateY(0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(147, 197, 253, 0);
+    transform: translateY(0);
   }
 }
 
-/* .btn-animated-border:hover {
-  animation: pulse-glow 1.6s ease-in-out infinite;
-  border-color: #71e3e3;
-  color: #bffafe;
-} */
+/* Northern Lights Animation */
+@keyframes smoothBg {
+  0% {
+    background-position: 0% 50%, 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%, 100% 50%;
+  }
+}
 
-.btn.hover-border-2::before,
-.btn.hover-border-2::after {
-  width: 10%;
-  height: 25%;
-  transition: 0.35s;
+.hero {
+  --stripes: repeating-linear-gradient(
+    100deg,
+    var(--stripe-color) 0%,
+    var(--stripe-color) 7%,
+    transparent 10%,
+    transparent 12%,
+    var(--stripe-color) 16%
+  );
+
+  --rainbow: repeating-linear-gradient(
+    100deg,
+    #4787ed 10%,
+    #4ab3b3 15%,
+    #5495e5 20%,
+    #7798c4 25%,
+    #55877f 30%
+  );
+
+  filter: blur(10px);
+
+  mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 750%, 500%;
+    animation: smoothBg 150s linear infinite;
+  }
 }
-.btn.hover-border-2::before {
-  bottom: 0;
-  left: 0;
-  border-left: 1px solid rgb(28, 31, 30);
-  border-bottom: 1px solid rgb(28, 31, 30);
+
+.hero::after {
+  filter: blur(10px) opacity(30%);
 }
-.btn.hover-border-2::after {
-  top: 0;
-  right: 0;
-  border-right: 1px solid rgb(28, 31, 30);
-  border-top: 1px solid rgb(28, 31, 30);
+
+.paint-splash {
+  background: white;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  position: relative;
+  transition: ease-in-out 0.2s;
 }
-.btn.hover-border-2:hover::before,
-.btn.hover-border-2:hover::after {
-  width: 99%;
-  height: 99%;
+
+.paint-splash:hover {
+  background-image: radial-gradient(
+    circle at var(--mx) var(--my),
+    var(--color-primary) 0%,
+    var(--color-primary) 15%,
+    white 40%
+  );
 }

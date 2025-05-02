@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import type { JSX } from "react";
 
 const skills: Record<string, string[]> = {
-  "Languages & Frameworks": [
+  Frameworks: [
     "JavaScript (ES6+)",
     "TypeScript",
     "HTML5",
@@ -20,7 +20,7 @@ const skills: Record<string, string[]> = {
     "Jest",
     "TanStack Query",
   ],
-  "UI/UX & Design Systems": [
+  Design: [
     "Tailwind CSS",
     "Bootstrap",
     "Material Design",
@@ -33,9 +33,8 @@ const skills: Record<string, string[]> = {
     "Responsive design",
     "508 Compliance",
     "Accessibility (WCAG)",
-    "Theming Systems",
   ],
-  "Developer Tools & Platforms": [
+  Development: [
     "CI/CD Exposure",
     "RESTful APIs",
     "Git",
@@ -51,7 +50,19 @@ const skills: Record<string, string[]> = {
     "Webstorm",
     "ESLint",
     "Prettier",
-    "npm/yarn",
+  ],
+  Core: [
+    "Human Centered Design",
+    "Agile",
+    "Leadership",
+    "Team Building",
+    "Mentoring",
+    "Code Reviews",
+    "Scrum",
+    "Problem Solving",
+    "Debugging",
+    "Collaboration",
+    "Communication",
   ],
 };
 
@@ -72,7 +83,7 @@ const item = {
 export default function Skills(): JSX.Element {
   return (
     <motion.div
-      className="grid md:grid-cols-3 gap-4"
+      className="grid md:grid-cols-2 gap-4 space-y-6"
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -80,7 +91,7 @@ export default function Skills(): JSX.Element {
     >
       {Object.entries(skills).map(([category, items]) => (
         <motion.div key={category} variants={item}>
-          <h3 className="text-lg font-semibold mb-4 text-blue-200">
+          <h3 className="text-lg font-semibold mb-3 text-gray-200">
             {category}
           </h3>
           <ul className="flex flex-wrap gap-2">
@@ -88,7 +99,7 @@ export default function Skills(): JSX.Element {
               <motion.li
                 key={skill}
                 variants={item}
-                className="px-3 py-1 border border-blue-300 text-sm rounded-md text-blue-100 hover:bg-blue-800/30 transition-colors duration-200"
+                className="px-3 py-1 border border-gray-300 text-sm rounded-md text-gray-100 hover:text-teal-300 hover:bg-slate-900 cursor-default"
               >
                 {skill}
               </motion.li>

@@ -14,7 +14,7 @@ export default function SidebarLink({ id, label, isActive }: SidebarLinkProps) {
       <a
         href={`#${id}`}
         className={`relative block text-lg font-medium transition-colors overflow-hidden ms-2 ${
-          isActive ? "text-blue-200" : "text-gray-500 hover:text-blue-200"
+          isActive ? "text-teal-300" : "text-gray-400 hover:text-teal-300"
         }`}
       >
         <span className="relative z-10">{label}</span>
@@ -22,7 +22,7 @@ export default function SidebarLink({ id, label, isActive }: SidebarLinkProps) {
       {isActive && (
         <motion.span
           layoutId="nav-indicator"
-          className="absolute left-0 top-1/2 h-3 w-3 -translate-y-1/2 border border-blue-300 rounded-full bg-transparent transition-colors duration-300"
+          className="absolute left-0 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-teal-300 transition-colors duration-300"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1, type: "spring", stiffness: 250 }}

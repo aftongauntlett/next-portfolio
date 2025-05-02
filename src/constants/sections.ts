@@ -13,8 +13,8 @@ export type SectionItem = {
 
 export const SECTIONS: SectionItem[] = [
   { id: "about", label: "About", Component: About },
-  { id: "experience", label: "Experience", Component: Experience },
   { id: "skills", label: "Skills", Component: Skills },
+  { id: "experience", label: "Experience", Component: Experience },
   { id: "projects", label: "Projects", Component: Projects },
   { id: "contact", label: "Contact", Component: Contact },
 ];
