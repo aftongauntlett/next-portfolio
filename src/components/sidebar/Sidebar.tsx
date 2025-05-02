@@ -25,7 +25,7 @@ export default function Sidebar() {
     >
       <div>
         <h1 className="text-3xl font-bold text-white mb-1">Afton Gauntlett</h1>
-        <h2 className="text-lg text-teal-300 mb-8">Web Developer</h2>
+        <h2 className="text-lg text-gray-400 mb-8">Web Developer</h2>
 
         <nav>
           <ul className="space-y-3">
