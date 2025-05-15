@@ -3,7 +3,7 @@
 import Footer from "@components/reusable/Footer";
 import Section from "@components/Section";
 import About from "@components/sections/About";
-import Contact from "@components/sections/Contact";
+import ContactForm from "@components/sections/ContactForm";
 import Experience from "@components/sections/Experience";
 import Projects from "@components/sections/Projects";
 import Skills from "@components/sections/Skills";
@@ -28,7 +28,7 @@ export default function HomePage() {
       </Section>
 
       <Section id="contact">
-        <Contact />
+        <ContactForm />
       </Section>
       <Footer />
     </>

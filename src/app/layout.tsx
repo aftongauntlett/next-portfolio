@@ -1,7 +1,28 @@
-import React from "react";
 import "./globals.css";
 import Sidebar from "@components/sidebar/Sidebar";
 import SectionScrollSpy from "@components/reusable/SectionScrollSpy";
+import { Inter, Montserrat, Nothing_You_Could_Do } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const handwriting = Nothing_You_Could_Do({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-cursive",
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -9,7 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${inter.variable} ${montserrat.variable} ${handwriting.variable}`}
+    >
       <body className="overflow-x-hidden bg-body-light dark:bg-body-dark text-dark dark:text-light">
         <SectionScrollSpy />
         <div className="hero fixed inset-0" />
