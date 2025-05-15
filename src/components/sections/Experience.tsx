@@ -1,6 +1,13 @@
-import Timeline from "@components/reusable/Timeline";
-import type { JSX } from "react";
+import type { FC } from "react";
+// import LogoMarquee from "@components/LogoMarquee";
+import Timeline from "@components/Timeline";
 
-export default function Experience(): JSX.Element {
-  return <Timeline />;
-}
+const Experience: FC = () => (
+  <>
+    <Timeline />
+    {/* TODO */}
+    {/* <LogoMarquee /> */}
+  </>
+);
+
+export default Experience;
