@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ================== */
+/* Variables & Fonts  */
+/* ================== */
 :root {
   --color-primary: #56fbda;
   --color-secondary: #75a6f9;
@@ -14,6 +17,9 @@
   --ls: clamp(-1.75px, -0.25vw, -3.5px);
 }
 
+/* ================== */
+/* Global Styles      */
+/* ================== */
 body {
   color: var(--color-light);
   background-color: var(--color-dark);
@@ -34,6 +40,9 @@ h6 {
   letter-spacing: 1.2px;
 }
 
+/* ================== */
+/* Typography Utility */
+/* ================== */
 .text-cursive {
   font-family: var(--font-cursive);
   color: var(--color-primary);
@@ -58,7 +67,9 @@ h6 {
   letter-spacing: var(--ls);
 }
 
-/* Northern Lights Animation */
+/* ================== */
+/* Hero Animation     */
+/* ================== */
 @keyframes smoothBg {
   0% {
     background-position: 0% 50%, 0% 50%;
@@ -77,7 +88,6 @@ h6 {
     transparent 12%,
     var(--stripe-color) 16%
   );
-
   --rainbow: repeating-linear-gradient(
     100deg,
     #4787ed 10%,
@@ -86,9 +96,7 @@ h6 {
     #7798c4 25%,
     #55877f 30%
   );
-
   filter: blur(10px);
-
   mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
   &::after {
     content: "";
@@ -99,11 +107,13 @@ h6 {
     animation: smoothBg 150s linear infinite;
   }
 }
-
 .hero::after {
   filter: blur(10px) opacity(30%);
 }
 
+/* ================== */
+/* Paint Splash       */
+/* ================== */
 .paint-splash {
   background: white;
   color: transparent;
@@ -112,7 +122,6 @@ h6 {
   position: relative;
   transition: ease-in-out 0.2s;
 }
-
 .paint-splash:hover {
   background-image: radial-gradient(
     circle at var(--mx) var(--my),
@@ -120,4 +129,149 @@ h6 {
     var(--color-primary) 15%,
     white 40%
   );
+}
+
+/* ================== */
+/* Timeline (Experience) */
+/* ================== */
+.timeline-dot {
+  @apply absolute left-[11px] top-0 w-3 h-3 rounded-full transition-shadow duration-200 ease-out;
+}
+
+.timeline-dot-glow {
+  @apply hover:shadow-[0_0_8px_4px_rgba(45,212,191,0.5)];
+}
+
+.timeline-item {
+  @apply mb-12 pl-12 relative;
+}
+
+.timeline-vertical {
+  @apply relative before:absolute before:left-4 before:top-0 before:h-full before:w-[2px] before:bg-gray-700;
+}
+
+.timeline-title {
+  @apply text-lg font-medium text-white transition-colors hover:text-teal-300;
+}
+
+.timeline-date {
+  @apply block text-sm text-gray-400 mb-2;
+}
+
+.timeline-description {
+  @apply ml-3 text-gray-200 leading-snug;
+}
+
+/* ================== */
+/* Sections           */
+/* ================== */
+.section {
+  @apply py-8 min-h-0;
+  @apply sm:py-12;
+  @apply lg:py-32 lg:min-h-screen;
+}
+.section-heading {
+  @apply text-4xl font-bold tracking-tight mb-8;
+}
+.section-content {
+  @apply space-y-4;
+}
+.section-actions {
+  @apply justify-start max-sm:justify-end mt-8 flex;
+}
+
+/* ================== */
+/* Skills             */
+/* ================== */
+
+.skills-grid {
+  @apply grid md:grid-cols-2 gap-4 space-y-6;
+}
+.skills-category {
+  @apply text-lg font-semibold mb-3 text-gray-200;
+}
+.skills-list {
+  @apply flex flex-wrap gap-2;
+}
+.skills-pill {
+  @apply px-3 py-1 border border-gray-300 text-sm rounded-md text-gray-100 hover:text-teal-300 hover:bg-slate-900 cursor-default focus-visible:ring-2 focus-visible:ring-teal-300 outline-none transition-colors duration-150;
+}
+
+/* ================== */
+/* Button             */
+/* ================== */
+.btn {
+  @apply inline-flex items-center gap-1 px-3 py-1 border border-gray-300 text-sm rounded-md text-gray-100 hover:text-teal-300 hover:bg-slate-900 cursor-pointer transition-all duration-300;
+}
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  @apply opacity-60 cursor-not-allowed;
+}
+
+/* ================== */
+/* Footer             */
+/* ================== */
+.footer {
+  @apply pt-10 flex items-center justify-between text-sm border-t border-gray-800/50 w-full;
+}
+.footer-content {
+  @apply mx-auto flex flex-col sm:flex-row justify-between items-center gap-4;
+}
+.footer-copy {
+  @apply text-sm text-gray-200/50;
+}
+
+/* ================== */
+/* Scroll To Top      */
+/* ================== */
+.scroll-to-top-btn {
+  @apply relative w-10 h-10 flex items-center justify-center bg-transparent;
+}
+.scroll-to-top-cursor {
+  @apply absolute w-2.5 h-2.5 rounded-full bg-red-500 pointer-events-none;
+  box-shadow: 0 0 10px 4px rgba(255, 0, 0, 0.4);
+}
+.scroll-to-top-lottie {
+  @apply relative w-30;
+}
+.scroll-to-top-glow {
+  @apply absolute inset-0 bg-teal-300/80 blur-2xl;
+}
+
+/* ================== */
+/* Typing Ellipsis      */
+/* ================== */
+.dot-bounce {
+  display: inline-block;
+  width: 0.25em;
+  height: 0.25em;
+  margin: 0 0.08em;
+  border-radius: 9999px;
+  background: #2dd4bf; /* tailwind's teal-300 */
+  animation: dot-bounce 1.8s infinite both;
+}
+
+.dot-bounce.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+.dot-bounce.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-bounce {
+  0%,
+  20% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-0.5em);
+  }
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+h2:hover .dot-bounce {
+  animation-play-state: paused;
 }
