@@ -1,13 +1,21 @@
-// TextHoverDrip.tsx
 "use client";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 interface TextHoverDripProps {
   children: React.ReactNode;
+  ariaLabel?: string; // Optional: allow user to set a custom aria-label
 }
 
-export default function TextHoverDrip({ children }: TextHoverDripProps) {
+/**
+ * TextHoverDrip applies a visual "drip" effect to its children
+ * on mouse hover or keyboard focus. Accessible for both pointer
+ * and keyboard users, with optional ARIA labeling.
+ */
+export default function TextHoverDrip({
+  children,
+  ariaLabel,
+}: TextHoverDripProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hover, setHover] = useState(false);
@@ -18,6 +26,20 @@ export default function TextHoverDrip({ children }: TextHoverDripProps) {
     setPos({ x: e.clientX - left, y: e.clientY - top });
   }
 
+  // Allow keyboard users to trigger the hover effect
+  function handleFocus() {
+    setHover(true);
+    // Optionally, set position to center for keyboard
+    if (wrapperRef.current) {
+      const { width, height } = wrapperRef.current.getBoundingClientRect();
+      setPos({ x: width / 2, y: height / 2 });
+    }
+  }
+
+  function handleBlur() {
+    setHover(false);
+  }
+
   return (
     <motion.div
       ref={wrapperRef}
@@ -25,9 +47,14 @@ export default function TextHoverDrip({ children }: TextHoverDripProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
+      tabIndex={0}
+      aria-label={ariaLabel}
+      aria-hidden={ariaLabel ? undefined : "true"}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onMouseMove={handleMouseMove}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       style={
         hover
           ? ({

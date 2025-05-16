@@ -3,6 +3,10 @@
 import { motion } from "framer-motion";
 import ScrollToTopCat from "./ScrollToTopCat";
 
+/**
+ * Site footer with copyright and scroll-to-top.
+ * Animated on view, accessible, and styled via global classes.
+ */
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -12,13 +16,14 @@ export default function Footer() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="pt-10 flex items-center justify-between text-sm border-t border-gray-800/50 w-full"
+      className="footer"
+      role="contentinfo"
     >
-      <div className="mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-        <span className="text-sm text-gray-200/50">
-          &copy; {new Date().getFullYear()} - Afton Gauntlett
-        </span>
+      {/* Main footer content */}
+      <div className="footer-content">
+        <span className="footer-copy">&copy; {year} - Afton Gauntlett</span>
       </div>
+      {/* Scroll-to-top button/cat */}
       <ScrollToTopCat />
     </motion.footer>
   );

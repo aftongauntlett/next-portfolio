@@ -8,6 +8,10 @@ interface SidebarLinkProps {
   isActive: boolean;
 }
 
+/**
+ * SidebarLink renders an accessible navigation link for the sidebar.
+ * Adds aria-current for the active section and animates a visual indicator.
+ */
 export default function SidebarLink({ id, label, isActive }: SidebarLinkProps) {
   return (
     <li className="relative pl-4">
@@ -16,9 +20,11 @@ export default function SidebarLink({ id, label, isActive }: SidebarLinkProps) {
         className={`relative block text-lg font-medium transition-colors overflow-hidden ms-2 ${
           isActive ? "text-teal-300" : "text-gray-400 hover:text-teal-300"
         }`}
+        aria-current={isActive ? "page" : undefined} // Accessibility: announce active link
       >
         <span className="relative z-10">{label}</span>
       </a>
+      {/* Visual indicator for the active link */}
       {isActive && (
         <motion.span
           layoutId="nav-indicator"

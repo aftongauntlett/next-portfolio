@@ -21,16 +21,18 @@ type CommonProps = {
 
 type Props = CommonProps & (AnchorProps | ButtonOnlyProps);
 
+/**
+ * Reusable button component for links and actions.
+ * Applies consistent styling and supports icons, accessibility, and external/internal links.
+ */
 export default function Button(props: Props) {
   const { text, icon, className, href, external, ...rest } =
     props as AnchorProps & CommonProps;
 
-  const classes = clsx(
-    "inline-flex items-center gap-1 px-3 py-1 border transition-all duration-300",
-    "px-3 py-1 border border-gray-300 text-sm rounded-md text-gray-100 hover:text-teal-300 hover:bg-slate-900 cursor-pointer",
-    className
-  );
+  // Use a global .btn class for DRYness; allow custom className overrides
+  const classes = clsx("btn", className);
 
+  // Consistent button/link content
   const content = (
     <>
       <span>{text}</span>
@@ -38,6 +40,7 @@ export default function Button(props: Props) {
     </>
   );
 
+  // External anchor link
   if (href) {
     if (external) {
       const { onClick, ...anchorRest } =
@@ -56,6 +59,7 @@ export default function Button(props: Props) {
       );
     }
 
+    // Internal link using next/link
     const { onClick, ...linkRest } =
       rest as React.AnchorHTMLAttributes<HTMLAnchorElement>;
     return (
@@ -65,6 +69,7 @@ export default function Button(props: Props) {
     );
   }
 
+  // Native button
   const {
     onClick,
     disabled,
@@ -75,6 +80,7 @@ export default function Button(props: Props) {
     <button
       type={type}
       disabled={disabled}
+      aria-disabled={disabled}
       className={classes}
       onClick={onClick}
       {...buttonRest}

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import TextHoverDrip from "./reusable/TextHoverDrip";
+import type { JSX } from "react";
 
 interface SectionProps {
   id: string;
@@ -9,22 +10,38 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-export default function Section({ id, title, children }: SectionProps) {
+/**
+ * Section wrapper for consistent layout, spacing, and accessibility.
+ */
+export default function Section({
+  id,
+  title,
+  children,
+}: SectionProps): JSX.Element {
+  // Generate a heading ID for accessibility if a title is provided
+  const headingId = title ? `${id}-heading` : undefined;
+
   return (
     <motion.section
       id={id}
-      className="py-40"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
+      aria-labelledby={headingId}
+      className="section"
     >
+      {/* Section Title */}
       {title && (
         <TextHoverDrip>
-          <h2 className="text-4xl mb-8">{title}</h2>
+          <h2 id={headingId} className="section-heading">
+            {title}
+          </h2>
         </TextHoverDrip>
       )}
-      <div>{children}</div>
+
+      {/* Section Content */}
+      <div className="section-content">{children}</div>
     </motion.section>
   );
 }

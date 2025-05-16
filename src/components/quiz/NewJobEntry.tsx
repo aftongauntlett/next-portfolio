@@ -1,7 +1,10 @@
 "use client";
 
-import type { FC } from "react";
+import { type FC } from "react";
 
+/**
+ * Job type for rendering a single timeline entry.
+ */
 export interface Job {
   company: string;
   title: string;
@@ -9,21 +12,24 @@ export interface Job {
   description: string[];
 }
 
+/**
+ * Renders a single job entry for the timeline.
+ * Accessible, clean, and styled using global timeline classes.
+ */
 const NewJobEntry: FC<{ job: Job }> = ({ job }) => (
-  <>
-    <h3 className="text-lg font-medium text-color-primary transition-colors group-hover:text-teal-300 capitalize">
+  <div>
+    <h3 className="timeline-title">
       {job.title} <span className="font-normal">@ {job.company}</span>
     </h3>
-
-    <time className="block text-sm text-gray-400 mb-2">{job.dates}</time>
+    <time className="timeline-date">{job.dates}</time>
     <ul className="space-y-2">
-      {job.description.map((line, i) => (
-        <li key={i} className="ml-3 text-gray-200 leading-snug">
+      {job.description.map((line, idx) => (
+        <li key={idx} className="timeline-description">
           {line}
         </li>
       ))}
     </ul>
-  </>
+  </div>
 );
 
 export default NewJobEntry;

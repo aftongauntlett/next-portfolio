@@ -10,6 +10,7 @@ export type SectionItem = {
   Component: FC;
 };
 
+// Defines the list of main site sections and their metadata for navigation and rendering.
 export const SECTIONS: SectionItem[] = [
   { id: "about", label: "About", Component: About },
   { id: "skills", label: "Skills", Component: Skills },

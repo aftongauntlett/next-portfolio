@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import catAnimation from "../../animations/cat-twitch.json";
 
+/**
+ * Animated scroll-to-top button using a Lottie cat.
+ * Shows a custom cursor and animation on hover.
+ * Accessible and styled using global classes.
+ */
 export default function ScrollToTopCat() {
   const [hovering, setHovering] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -12,6 +17,7 @@ export default function ScrollToTopCat() {
 
   return (
     <motion.button
+      // Smoothly scroll to top on click
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       onMouseEnter={() => {
         setHovering(true);
@@ -28,29 +34,31 @@ export default function ScrollToTopCat() {
           y: e.clientY - rect.top,
         });
       }}
-      className="relative w-10 h-10 hidden lg:flex items-center justify-center bg-transparent cursor-none "
+      className="scroll-to-top-btn hidden lg:flex cursor-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300"
       aria-label="Scroll to top"
+      type="button"
     >
+      {/* Custom animated cursor on hover (that looks like a laser pen!) */}
       {hovering && (
         <div
-          className="absolute w-2.5 h-2.5 rounded-full bg-red-500 pointer-events-none"
+          className="scroll-to-top-cursor"
           style={{
             top: cursorPos.y,
             left: cursorPos.x,
             transform: "translate(-50%, -50%)",
-            boxShadow: "0 0 10px 4px rgba(255, 0, 0, 0.4)",
           }}
         />
       )}
 
-      <div className="ms-10 relative">
-        <div className="absolute inset-0 bg-teal-300/80 blur-2xl" />
+      {/* Lottie cat with glowing background */}
+      <div className="ms-10 scroll-to-top-lottie">
+        <div className="scroll-to-top-glow" />
         <Lottie
           lottieRef={lottieRef}
           autoplay={false}
           animationData={catAnimation}
           loop
-          className="w-30"
+          className="scroll-to-top-lottie"
         />
       </div>
     </motion.button>
