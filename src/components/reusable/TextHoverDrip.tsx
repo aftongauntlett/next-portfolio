@@ -1,68 +1,66 @@
 "use client";
-import { useRef, useState } from "react";
+
+import { useRef, type ReactNode } from "react";
 import { motion } from "framer-motion";
 
 interface TextHoverDripProps {
-  children: React.ReactNode;
-  ariaLabel?: string; // Optional: allow user to set a custom aria-label
+  /** Content that receives the drip effect */
+  children: ReactNode;
+  /** Optional label for assistive tech */
+  ariaLabel?: string;
 }
 
 /**
- * TextHoverDrip applies a visual "drip" effect to its children
- * on mouse hover or keyboard focus. Accessible for both pointer
- * and keyboard users, with optional ARIA labeling.
+ * TextHoverDrip
+ *
+ * Adds a paint-drip effect that follows the cursor or keyboard focus.
+ * Color changes on hover/focus are handled via CSS so animations aren’t interrupted.
  */
 export default function TextHoverDrip({
   children,
   ariaLabel,
 }: TextHoverDripProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [hover, setHover] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  function handleMouseMove(e: React.MouseEvent) {
-    if (!wrapperRef.current) return;
-    const { left, top } = wrapperRef.current.getBoundingClientRect();
-    setPos({ x: e.clientX - left, y: e.clientY - top });
-  }
+  /** Update CSS vars driving the drip’s position */
+  const updateDrip = (x: number, y: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.style.setProperty("--mx", `${x}px`);
+    el.style.setProperty("--my", `${y}px`);
+  };
 
-  // Allow keyboard users to trigger the hover effect
-  function handleFocus() {
-    setHover(true);
-    // Optionally, set position to center for keyboard
-    if (wrapperRef.current) {
-      const { width, height } = wrapperRef.current.getBoundingClientRect();
-      setPos({ x: width / 2, y: height / 2 });
-    }
-  }
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const { left, top } = el.getBoundingClientRect();
+    updateDrip(e.clientX - left, e.clientY - top);
+  };
 
-  function handleBlur() {
-    setHover(false);
-  }
+  const handleFocus = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    const { width, height } = el.getBoundingClientRect();
+    updateDrip(width / 2, height / 2);
+  };
 
   return (
     <motion.div
-      ref={wrapperRef}
-      className="paint-splash relative inline-block font-bold cursor-default"
+      ref={containerRef}
+      className="
+        paint-splash 
+        relative inline-block font-bold cursor-default
+        hover:text-primary focus:text-primary
+        transition-colors duration-300
+      "
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
       tabIndex={0}
       aria-label={ariaLabel}
       aria-hidden={ariaLabel ? undefined : "true"}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
       onMouseMove={handleMouseMove}
       onFocus={handleFocus}
-      onBlur={handleBlur}
-      style={
-        hover
-          ? ({
-              "--mx": `${pos.x}px`,
-              "--my": `${pos.y}px`,
-            } as React.CSSProperties)
-          : {}
-      }
     >
       {children}
     </motion.div>

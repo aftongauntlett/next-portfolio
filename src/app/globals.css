@@ -271,7 +271,3 @@ h6 {
     transform: translateY(0);
   }
 }
-
-h2:hover .dot-bounce {
-  animation-play-state: paused;
-}
