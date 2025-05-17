@@ -64,7 +64,10 @@ export default function Experience(): JSX.Element {
               } timeline-dot-glow`}
               aria-hidden="true"
             />
-            <h3 id={headingId} className="timeline-title">
+            <h3
+              id={headingId}
+              className="timeline-title text-white transition-colors group-hover:text-teal-300"
+            >
               {job.title} <span className="font-normal">@ {job.company}</span>
             </h3>
             <time id={dateId} className="timeline-date">

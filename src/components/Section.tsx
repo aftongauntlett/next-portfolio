@@ -4,6 +4,11 @@ import { motion } from "framer-motion";
 import TextHoverDrip from "./reusable/TextHoverDrip";
 import type { JSX } from "react";
 
+/**
+ * Props for Section component
+ * @param id – unique section ID for navigation
+ * @param title – optional heading text
+ */
 interface SectionProps {
   id: string;
   title?: string;
