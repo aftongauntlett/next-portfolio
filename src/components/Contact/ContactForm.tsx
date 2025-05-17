@@ -1,32 +1,52 @@
 "use client";
 
-import React, { useState } from "react";
-import Script from "next/script";
-import { useForm, Controller } from "react-hook-form";
+import { useState } from "react";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@components/reusable/Button";
 import { HiOutlineArrowRight } from "react-icons/hi2";
+import { TextField } from "@components/reusable/TextField";
+import { TextAreaField } from "@components/reusable/TextArea";
 
 const phoneRegex = /^\(\d{3}\)-\d{3}-\d{4}$/;
 
-const contactSchema = z.object({
-  firstName: z.string().nonempty("First name is required"),
-  lastName: z.string().nonempty("Last name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().refine((val) => val === "" || phoneRegex.test(val), {
-    message: "Use format (123)-456-7890",
-  }),
-  message: z.string().nonempty("Message is required"),
-  website: z.string().max(0), // honeypot
-});
+/**
+ * Zod schema for validating contact form fields.
+ * Includes:
+ * - firstName, lastName: required strings
+ * - email: must be a valid email
+ * - phone: optional, but if provided must match (123)-456-7890
+ * - message: required string
+ * - website: honeypot field, must be empty when submitted
+ */
+const contactSchema = z
+  .object({
+    firstName: z.string().nonempty("First name is required"),
+    lastName: z.string().nonempty("Last name is required"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().refine((val) => val === "" || phoneRegex.test(val), {
+      message: "Use format (123)-456-7890",
+    }),
+    message: z.string().nonempty("Message is required"),
+    website: z.string().max(0), // honeypot
+  })
+  .strict();
 
 type ContactFormData = z.infer<typeof contactSchema>;
-type Payload = ContactFormData & { captchaToken: string };
 
+/**
+ * ContactForm component
+ *
+ * Renders a contact form with:
+ * - Honeypot anti-bot field
+ * - React Hook Form + Zod validation
+ * - PatternFormat phone input
+ * - Reusable TextField and TextAreaField subcomponents
+ * - Button with loading/sent/error states
+ */
 export default function ContactForm() {
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
@@ -50,7 +70,14 @@ export default function ContactForm() {
     },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
+  /**
+   * onSubmit handler
+   * - Skips actual submission if honeypot is filled
+   * - Sends form data to /api/contact via POST
+   * - Updates local status state to drive UI feedback
+   */
+  const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
+    // Honeypot check: spam bots will fill this invisible field
     if (data.website) {
       setStatus("sent");
       reset();
@@ -59,28 +86,19 @@ export default function ContactForm() {
 
     setStatus("sending");
 
-    let token: string;
-    try {
-      await new Promise<void>((res) => window.grecaptcha.ready(res));
-      token = await window.grecaptcha.execute(siteKey, {
-        action: "contact",
-      });
-    } catch {
-      setStatus("error");
-      return;
-    }
-
-    const payload: Payload = { ...data, captchaToken: token };
-
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("Network response was not ok");
-      setStatus("sent");
-      reset();
+
+      if (res.ok) {
+        setStatus("sent");
+        reset();
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     }
@@ -88,12 +106,8 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="scroll-mt-28">
-      <Script
-        src={`https://www.google.com/recaptcha/api.js?render=${siteKey}`}
-        strategy="afterInteractive"
-      />
       <form noValidate className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-        {/* Honeypot */}
+        {/* Honeypot field */}
         <input
           type="text"
           {...register("website")}
@@ -103,63 +117,32 @@ export default function ContactForm() {
         />
 
         <div className="grid sm:grid-cols-2 gap-4">
-          {/* First Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-200">
-              First Name
-            </label>
-            <input
-              {...register("firstName")}
-              type="text"
-              placeholder="First Name"
-              className="mt-1 w-full px-4 py-2 bg-transparent border border-gray-400 rounded-md text-sm placeholder-gray-400 focus:outline-none"
-            />
-            {errors.firstName && (
-              <p className="mt-1 text-xs text-red-400">
-                {errors.firstName.message}
-              </p>
-            )}
-          </div>
+          <TextField
+            id="firstName"
+            label="First Name"
+            register={register}
+            error={errors.firstName}
+          />
+          <TextField
+            id="lastName"
+            label="Last Name"
+            register={register}
+            error={errors.lastName}
+          />
+          <TextField
+            id="email"
+            label="Email"
+            type="email"
+            register={register}
+            error={errors.email}
+          />
 
-          {/* Last Name */}
+          {/* Phone field uses Controller + PatternFormat */}
           <div>
-            <label className="block text-sm font-medium text-gray-200">
-              Last Name
-            </label>
-            <input
-              {...register("lastName")}
-              type="text"
-              placeholder="Last Name"
-              className="mt-1 w-full px-4 py-2 bg-transparent border border-gray-400 rounded-md text-sm placeholder-gray-400 focus:outline-none"
-            />
-            {errors.lastName && (
-              <p className="mt-1 text-xs text-red-400">
-                {errors.lastName.message}
-              </p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-200">
-              Email
-            </label>
-            <input
-              {...register("email")}
-              type="email"
-              placeholder="Email"
-              className="mt-1 w-full px-4 py-2 bg-transparent border border-gray-400 rounded-md text-sm placeholder-gray-400 focus:outline-none"
-            />
-            {errors.email && (
-              <p className="mt-1 text-xs text-red-400">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          {/* Phone */}
-          <div>
-            <label className="block text-sm font-medium text-gray-200">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-200"
+            >
               Phone
             </label>
             <Controller
@@ -185,25 +168,15 @@ export default function ContactForm() {
           </div>
         </div>
 
-        {/* Message */}
-        <div>
-          <label className="block text-sm font-medium text-gray-200">
-            Message
-          </label>
-          <textarea
-            {...register("message")}
-            rows={4}
-            placeholder="What’s on your mind?"
-            className="mt-1 w-full px-4 py-2 bg-transparent border border-gray-400 rounded-md text-sm placeholder-gray-400 focus:outline-none"
-          />
-          {errors.message && (
-            <p className="mt-1 text-xs text-red-400">
-              {errors.message.message}
-            </p>
-          )}
-        </div>
+        {/* Message textarea */}
+        <TextAreaField
+          id="message"
+          label="Message"
+          register={register}
+          error={errors.message}
+        />
 
-        {/* Submit */}
+        {/* Submit button and feedback */}
         <div className="flex justify-end">
           <Button
             type="submit"
