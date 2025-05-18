@@ -5,6 +5,7 @@ import { useActiveSection } from "@hooks/useActiveSection";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import SidebarLink from "./SidebarLink";
 import TextHoverDrip from "@components/reusable/TextHoverDrip";
+import ThemeToggle from "@components/reusable/ThemeToggle";
 
 const NAV = [
   { id: "about", label: "About" },
@@ -67,6 +68,7 @@ export default function Sidebar() {
         >
           <FaLinkedin className="w-6 h-6" />
         </a>
+        <ThemeToggle />
       </div>
     </motion.aside>
   );
