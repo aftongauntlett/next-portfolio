@@ -1,86 +1,66 @@
 "use client";
 
 import { useState, type JSX } from "react";
-import { motion } from "framer-motion";
-import NewJobEntry from "@components/quiz/NewJobEntry";
-import NextRoleSlot from "@components/quiz/NextRoleSlot";
 import { jobs, type Job } from "data/jobs";
+import NextRoleSlot from "@components/quiz/NextRoleSlot";
+import NewJobEntry from "@components/quiz/NewJobEntry";
 import AnimatedList from "@components/AnimatedList";
+import TimelineItem from "@components/reusable/TimelineItem";
 
-/**
- * Career timeline/experience section.
- * Shows interactive job entries and supports adding a new role.
- */
+/** Renders the career timeline with interactive job entries. */
 export default function Experience(): JSX.Element {
   const [currentJob, setCurrentJob] = useState<Job | null>(null);
 
+  const entries = [
+    ...(currentJob
+      ? [
+          {
+            id: "dynamic",
+            title: currentJob.title,
+            company: currentJob.company,
+            dates: currentJob.dates,
+            isFirst: false,
+            isActive: true,
+            content: <NewJobEntry job={currentJob} />,
+          },
+        ]
+      : []),
+    ...jobs.map((job, idx) => ({
+      id: `${job.company}-${idx}`,
+      title: job.title,
+      company: job.company,
+      dates: job.dates,
+      isFirst: !currentJob && idx === 0,
+      isActive: false,
+      content: (
+        <AnimatedList as="ul" className="list-none space-y-2 mt-4" role="list">
+          {job.description.map((line, j) => (
+            <li key={j}>{line}</li>
+          ))}
+        </AnimatedList>
+      ),
+    })),
+  ];
+
   return (
-    <section
-      aria-labelledby="experience-job-list"
-      className="timeline-vertical"
-    >
-      {/* Dynamic "add new role" slot */}
+    <div className="timeline-vertical">
       {!currentJob && <NextRoleSlot onNewJob={setCurrentJob} />}
 
-      {/* Render a new, dynamic job if present */}
-      {currentJob && (
-        <motion.article
-          key="dynamic"
-          className="timeline-item"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          aria-label={`Job at ${currentJob.company}`}
-          tabIndex={0}
-        >
-          <motion.div
-            className="timeline-dot bg-teal-300"
-            animate={{ scale: [1, 1.4, 1], opacity: [1, 0.7, 1] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            aria-hidden="true"
-          />
-          <NewJobEntry job={currentJob} />
-        </motion.article>
-      )}
-
-      {/* Timeline of jobs */}
-      {jobs.map((job, idx) => {
-        const headingId = `job-title-${idx}`;
-        const descId = `job-desc-${idx}`;
-        const dateId = `job-date-${idx}`;
-
-        return (
-          <article
-            key={`${job.company}-${job.title}-${job.dates}`}
-            className="timeline-item group"
-            tabIndex={0}
-            aria-labelledby={headingId}
-            aria-describedby={`${dateId} ${descId}`}
+      {entries.map(
+        ({ id, title, company, dates, isFirst, isActive, content }) => (
+          <TimelineItem
+            key={id}
+            id={id}
+            title={title}
+            company={company}
+            dates={dates}
+            isFirst={isFirst}
+            isActive={isActive}
           >
-            <div
-              className={`timeline-dot ${
-                !currentJob && idx === 0
-                  ? "bg-teal-300"
-                  : "bg-gray-300 group-hover:bg-teal-300"
-              } timeline-dot-glow`}
-              aria-hidden="true"
-            />
-            <h3
-              id={headingId}
-              className="timeline-title text-white transition-colors group-hover:text-teal-300"
-            >
-              {job.title} <span className="font-normal">@ {job.company}</span>
-            </h3>
-            <time id={dateId} className="timeline-date">
-              {job.dates}
-            </time>
-            <AnimatedList as="ul">
-              {job.description.map((line, j) => (
-                <motion.li key={j}>{line}</motion.li>
-              ))}
-            </AnimatedList>
-          </article>
-        );
-      })}
-    </section>
+            {content}
+          </TimelineItem>
+        )
+      )}
+    </div>
   );
 }

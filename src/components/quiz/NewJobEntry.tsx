@@ -1,35 +1,24 @@
 "use client";
 
-import { type FC } from "react";
+import { type JSX } from "react";
+import { type Job } from "data/jobs";
 
-/**
- * Job type for rendering a single timeline entry.
- */
-export interface Job {
-  company: string;
-  title: string;
-  dates: string;
-  description: string[];
+interface NewJobEntryProps {
+  job: Job;
 }
 
 /**
- * Renders a single job entry for the timeline.
- * Accessible, clean, and styled using global timeline classes.
+ * Renders only the description bullets for a new, dynamic job.
+ * Headings and dates are handled by TimelineItem.
  */
-const NewJobEntry: FC<{ job: Job }> = ({ job }) => (
-  <div>
-    <h3 className="timeline-title">
-      {job.title} <span className="font-normal">@ {job.company}</span>
-    </h3>
-    <time className="timeline-date">{job.dates}</time>
-    <ul className="space-y-2">
+export default function NewJobEntry({ job }: NewJobEntryProps): JSX.Element {
+  return (
+    <ul role="list" className="list-none space-y-2 mt-4">
       {job.description.map((line, idx) => (
         <li key={idx} className="timeline-description">
           {line}
         </li>
       ))}
     </ul>
-  </div>
-);
-
-export default NewJobEntry;
+  );
+}
