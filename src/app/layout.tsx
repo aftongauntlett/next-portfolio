@@ -1,37 +1,51 @@
+// app/layout.tsx
 import "./globals.css";
-import "./custom.css";
-import { ThemeProvider } from "next-themes";
+import { Inter, Montserrat } from "next/font/google";
 import Sidebar from "@components/sidebar/Sidebar";
-import SectionScrollSpy from "@components/reusable/SectionScrollSpy";
-import { Roboto, Montserrat } from "next/font/google";
+import { Providers } from "./providers";
 
-const roboto = Roboto({
+const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
   variable: "--font-body",
+  display: "swap",
 });
 const montserrat = Montserrat({
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
   variable: "--font-heading",
+  display: "swap",
 });
 
+/**
+ * RootLayout
+ *
+ * Injects:
+ * - Global CSS (Tailwind + custom utilities)
+ * - Google Fonts via CSS variables
+ * - ThemeProvider
+ * - Hero backdrop
+ * - Sidebar + Main grid
+ */
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${roboto.variable} ${montserrat.variable}`}>
-      <body>
-        <ThemeProvider attribute="class" enableSystem defaultTheme="system">
-          <SectionScrollSpy />
+    <html
+      lang="en"
+      className={`${inter.variable} ${montserrat.variable} scroll-smooth`}
+      suppressHydrationWarning
+    >
+      <body className="font-body bg-background text-text antialiased">
+        <Providers>
           <div className="hero" aria-hidden="true" />
-          <div className="container mx-auto min-h-screen flex lg:grid lg:grid-cols-[20rem_1fr] gap-12 px-[clamp(1rem,5vw,2rem)]">
+          <div className="container mx-auto px-4 lg:px-8 min-h-screen grid grid-cols-1 lg:grid-cols-[20rem_1fr] gap-12">
             <Sidebar />
-            <main id="main-content" className="w-full">
-              {children}
-            </main>
+            <main id="main-content">{children}</main>
           </div>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

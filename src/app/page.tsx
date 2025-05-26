@@ -4,7 +4,7 @@ import Footer from "@components/reusable/Footer";
 import Section from "@components/Section";
 import About from "@components/sections/About";
 import Experience from "@components/sections/Experience";
-import Projects from "@components/sections/Projects";
+import Projects from "@components/sections/Project";
 import Skills from "@components/sections/Skills";
 import Contact from "@components/sections/Contact";
 
